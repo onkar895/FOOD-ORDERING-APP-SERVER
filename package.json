@@ -6,7 +6,7 @@
     "scripts": {
         "test": "jest",
         "start": "node server.js",
-        "build": "parcel build server.js"
+        "build": "parcel build entry/server.js"
     },
     "keywords": [
         "node",
