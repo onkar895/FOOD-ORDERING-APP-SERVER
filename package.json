@@ -5,8 +5,8 @@
     "main": "index.js",
     "scripts": {
         "test": "jest",
-        "start": "node index.js",
-        "build": "parcel build entry/server.js"
+        "start": "node server.js",
+        "build": "parcel build server.js"
     },
     "keywords": [
         "node",

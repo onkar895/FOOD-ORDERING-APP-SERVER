@@ -11,6 +11,10 @@ app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
 });
 
+app.get('/', (req, res) =>{
+  res.json({"test":"hello instafood lovers !!! "});
+})
+
 app.get('/api/restaurants', async (req, res) => {
   try {
     const { lat, lng } = req.query;
