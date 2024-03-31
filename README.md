@@ -15,6 +15,9 @@ This Node.js application sets up a proxy server using Express that fetches data 
 
 -   Usage : In react app , you can hit this API like mentioned below
 
+-   Access the home page by navigating to http://localhost:3000 in your web browser.
+-   Utilize the Swiggy API proxy by sending requests to http://localhost:3000/api/proxy/swiggy/dapi, which will be forwarded to Swiggy's API endpoint.
+
 -   Example :
 
 ```js
@@ -48,6 +51,12 @@ const response = await fetch(
 const data = await response.json();
 ```
 
+## Dependencies
+
+`express:` Web application framework for Node.js
+`http-proxy-middleware:` HTTP middleware for Node.js to enable proxying requests
+`cors:` Cross-Origin Resource Sharing middleware for Node.js
+
 ## Features
 
 -   **Proxy Middleware**: Routes requests to `/api/proxy/swiggy/dapi` to the Swiggy API, enabling seamless integration with Swiggy's services.
@@ -76,7 +85,7 @@ Start the server
   npm start
 ```
 
-This server is now be running on `localhost:3000`.
+The server will be running at http://localhost:3000 by default, or at the port specified by the PORT environment variable.
 
 ### Deploy your own server
 
