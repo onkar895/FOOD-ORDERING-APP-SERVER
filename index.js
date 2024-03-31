@@ -12,7 +12,7 @@ app.listen(port, () => {
 });
 
 app.get('/', (req, res) =>{
-  res.json({"test":"hello Food lovers !!! "});
+  res.json({"test":"Hello Food lovers, Welcome to the Food Delivery App !!! "});
 })
 
 app.get('/api/restaurants', async (req, res) => {
