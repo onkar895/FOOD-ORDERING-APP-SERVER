@@ -1,52 +1,34 @@
-const express = require('express');
-const cors = require('cors');
-const fetch = require('cross-fetch');
+import express from 'express'
+import { createProxyMiddleware } from 'http-proxy-middleware'
+import cors from 'cors'
 
-const app = express();
-const port = process.env.PORT || 3000;
+const app = express()
+const PORT = process.env.PORT || 3000
 
-app.use(cors());
+app.use(express.json())
+app.use(cors())
 
-app.listen(port, () => {
-  console.log(`Server is listening on port ${port}`);
-});
-
-app.get('/', (req, res) =>{
-  res.json({"test":"Hello Food lovers, Welcome to the Food Delivery App !!! "});
+// Define the CORS middleware
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE')
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+  next()
 })
 
-app.get('/api/restaurants', async (req, res) => {
-  try {
-    const { lat, lng } = req.query;
-    const url = `https://www.swiggy.com/dapi/restaurants/list/v5?lat=${lat}&lng=${lng}&page_type=DESKTOP_WEB_LISTING`;
-
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    
-    const data = await response.json();
-    res.json(data);
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('An error occurred');
+// Define the Swiggy API proxy route
+app.use('/api/proxy/swiggy/dapi', createProxyMiddleware({
+  target: 'https://www.swiggy.com',
+  changeOrigin: true,
+  pathRewrite: {
+    '^/api/proxy/swiggy/dapi': '/dapi'
   }
-});
+}))
 
-app.get('/api/menu', async (req, res) => {
-  try {
-    const { lat, lng, restaurantId } = req.query;
-    const url = `https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=${lat}&lng=${lng}&submitAction=ENTER&restaurantId=${restaurantId}`;
+app.get('/', (req, res) => {
+  res.send('<h1>"Hello Food lovers, Welcome to the Food Delivery App !!! "</h1>')
+})
 
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    
-    const data = await response.json();
-    res.json(data);
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('An error occurred');
-  }
-});
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`)
+})

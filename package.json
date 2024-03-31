@@ -3,10 +3,11 @@
     "version": "1.0.0",
     "description": "Server for food ordering app",
     "main": "index.js",
+    "type": "module",
     "scripts": {
         "test": "jest",
-        "start": "node server.js",
-        "build": "parcel build server.js"
+        "start": "node index.js",
+        "dev": "nodemon index.js"
     },
     "keywords": [
         "node",
@@ -20,6 +21,8 @@
     "dependencies": {
         "cors": "^2.8.5",
         "cross-fetch": "^4.0.0",
-        "express": "^4.19.1"
+        "express": "^4.19.1",
+        "http-proxy-middleware": "^2.0.6",
+        "nodemon": "^3.1.0"
     }
 }
